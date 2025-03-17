@@ -1,3 +1,5 @@
+var validator = require("email-validator");
+
 // Klassendefinition des Kunden
 class Kunde{
 	constructor(){
@@ -40,8 +42,15 @@ kundenberater.Nachname = "Pass"
 kundenberater.Vorname = "Hildegard"
 kundenberater.Telefonnummer = "012345 67890"
 kundenberater.Mail = "h.pass@borken-bank.de"
-
 kundenberater.Bild = "pass.jpg"
+
+
+
+if(validator.validate(kundenberater.Mail)){
+	console.log("email ist gültig")
+} else {
+	console.log("email ist ungültig")
+}
 
 'use strict';
 
@@ -201,7 +210,9 @@ app.get('/profil', (req, res) => {
 	if(kunde.IstEingeloggt){
 
 		// Wenn die Zugangsdaten korrekt sind, dann wird die angesurfte Seite gerendert.
-		res.render('profil.ejs',{});
+		res.render('profil.ejs',{
+			Meldung: "Bitte Eimal die Email angeben."
+		});
 
 	}else{
 		
@@ -210,6 +221,23 @@ app.get('/profil', (req, res) => {
 			Meldung: "Melden Sie sich zuerst an."
 		});
 	}
+});
+
+app.post('/profil', (req, res) => {
+
+	let email = req.body.Email;
+
+	if(validator.validate(email)){
+		res.render('profil.ejs',{
+			Meldung: "Email ist gültig."
+		});
+	} else {
+		res.render('profil.ejs',{
+			Meldung: "Email ist ungültig."
+		});
+	}
+
+	
 });
 
 app.get('/postfach', (req, res) => {

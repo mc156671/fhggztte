@@ -22,6 +22,15 @@
     </header>
     <main>
         <h1>Mein Profil</h1>
+        <form method="post">
+            <!--Die Labels beschreiben die Textboxen. br bricht die Zeile um.-->
+            <label>Email</label><br>
+            <input name="Email"><br>
+            
+            <button formaction="/profil">Email Überprüfen</button>
+        </form>
+    
+        <p><%= Meldung %></p>
     </main>
 
     <footer>
